@@ -5,11 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
   private float ForceValue = 1200f;
-  private float MinSpeedToDrag = 0.1f;
+  private float MinSpeedToDrag = 0.01f;
   private Rigidbody2D rb2d;
   private Camera mainCamera;
   private Vector2 StartPosition;
   private bool CanDrag = true;
+  public GameObject Circle;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         rb2d.isKinematic = true;
         rb2d.velocity = Vector2.zero;
         StartPosition = rb2d.position;
+        Circle.transform.position = this.gameObject.transform.position;
       }
 
     }
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         Vector2 direction = StartPosition - currentPosition;
         rb2d.isKinematic = false;
         rb2d.AddForce(direction * ForceValue);
+        Circle.transform.position = new Vector2(-14f, 0.5f);
       }
     }
 
@@ -54,6 +57,15 @@ public class Player : MonoBehaviour
       {
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector2(mousePosition.x, mousePosition.y);
+        Circle.transform.position = StartPosition;
+      }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+      if(other.gameObject.CompareTag("Finish"))
+      {
+        Destroy(this.gameObject);
       }
     }
 }
