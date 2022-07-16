@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-  private float ForceValue = 1.2f;
-  private float MinSpeedToDrag = 0.01f;
+  private float ForceValue = 1200f;
+  private float MinSpeedToDrag = 0.1f;
   private Rigidbody2D rb2d;
   private Camera mainCamera;
   private Vector2 StartPosition;
