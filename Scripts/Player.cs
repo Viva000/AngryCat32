@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-  private float ForceValue = 1200f;
+  private float ForceValue = 600f;
   private float MinSpeedToDrag = 0.01f;
   private Rigidbody2D rb2d;
   private Camera mainCamera;
   private Vector2 StartPosition;
   private bool CanDrag = true;
   public GameObject Circle;
+  public int currentLevel;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +68,8 @@ public class Player : MonoBehaviour
       if(other.gameObject.CompareTag("Finish"))
       {
         Destroy(this.gameObject);
+        currentLevel = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(currentLevel);
       }
     }
 }
